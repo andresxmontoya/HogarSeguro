@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
+<title>HogarSeguro · Evaluación estructural post-sismo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="HogarSeguro">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#16233A">
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%20%22HogarSeguro%22%2C%20%22short_name%22%3A%20%22HogarSeguro%22%2C%20%22start_url%22%3A%20%22.%22%2C%20%22display%22%3A%20%22standalone%22%2C%20%22background_color%22%3A%20%22%23F7F5F0%22%2C%20%22theme_color%22%3A%20%22%2316233A%22%2C%20%22icons%22%3A%20%5B%7B%22src%22%3A%20%22data%3Aimage/png%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAIAAAB7GkOtAAAZIUlEQVR4nO3deYyc533Y8Wfed2YvUlpSy0PkUpQoiYdoSaZO23LlRLET2U1ku3WipklbuXCboGmCGAFaoEHTI0XQwkmBIgmaKGkS9PDRxLVTO5ZvwzpsSRYlURdJWaRF86ZIiqTI5V7zvm//oErTskQtZ%2BedmXeezweGIRrw7gst9/d9n%2Bc9prbsqttCZD7/y6e6fQhAL7rr3oXdPoSOqvV3AMx6YJ76uAr9FgATHyhVP/WgTwJg7gMd1gclqHAADH2gR1Q0BpUMgNEP9KDKZaBKATD3gUqoSgmqEQCjH6ic3s9ATwfA3Af6QM%2BWoEcDYPQDfaYHM9BzATD6gT7WUxnooQAY/UAkeiQDSbcP4FWmPxCPHpl43V8B9Mi/CIDO6%2B5SoMsrANMfiFl3Z2DXVgBGP8BZXVkKdGcFYPoDnKsrU7HTKwCjH%2BA8OrkU6OgKwPQHOL9OzsnOBcD0B5iLjk3LTmwBGf0ALSh7O6j0FYDpD9CasudnuQEw/QHmo9QpWmIATH%2BA%2BStvlpYVANMfoF1KmqilBMD0B2ivMuZq%2BwNg%2BgOUoe3Ttc0BMP0BytPeGdvOAJj%2BAGVr46RtWwBMf4DOaNe8bU8ATH%2BATmrL1G1DAEx/gM6b/%2BydbwBMf4BumecEnlcATH%2BA7prPHO7yZwID0C2tB8DpP0AvaHkatxgA0x%2Bgd7Q2k1sJgOkP0GtamMyuAQBE6oID4PQfoDdd6Hy%2BsACY/gC97IKmtC0ggEhdQACc/gP0vrnP6rkGwPQHqIo5TmxbQACRmlMAnP4DVMtc5vabB8D0B6iiN53etoAAIvUmAXD6D1Bd55/hVgAAkTpfAJz%2BA1TdeSa5FQBApN4wAE7/AfrDG81zKwCASAkAQKRePwD2fwD6yetOdSsAgEi9TgCc/gP0nx%2Bd7VYAAJESAIBIvTYA9n8A%2BtVrJrwVAECkfigATv8B%2Btu5c94KACBSAgAQKQEAiNQPAuACAEAMzk57KwCASAkAQKReDYD9H4B4nJn5VgAAkRIAgEgJAECkBAAgUrVlV93mCjBAhKwAACIlAACREgCASAkAQKQEACBSAgAQqcQ9oABxsgIAiJQAAERKAAAiJQAAkRIAgEgJAECkBAAgUgIAECkBAIiUAABESgAAIiUAAJESAIBICQBApAQAIFICABApAQCIlAAAREoAACIlAACREgCASAkAQKQEACBSAgAQKQEAiJQAAERKAAAiJQAAkRIAgEgJAECkBAAgUgIAECkBAIiUAABESgAAIiUAAJESAIBICQBApAQAIFICABApAQCIlAAAREoAACIlAACREgCASAkAQKQEACBSAgAQKQEAiJQAAERKAAAiJQAAkRIAgEgJAECkBAAgUgIAECkBAIiUAABESgAAIiUAAJESAIBICQBApAQAIFICABApAQCIlAAAREoAACIlAACREgCASAkAQKQEACBSAgAQKQEAiJQAAERKAAAiJQAAkRIAgEgJAECkBAAgUgIAECkBAIiUAABESgAAIiUAAJESAIBICQBApAQAIFICABApAQCIlAAAREoAACIlAACREgCASAkAQKQEACBSAgAQKQEAiJQAAERKAAAiJQAAkRIAgEgJAECkBAAgUgIAECkBAIiUAABESgAAIiUAAJESAIBICQBApAQAIFICABApAQCIVL3bBwC8jqIIB08me44lB07Ujk/Wjp1Ojk/Wjk3WTs%2BEmaw2m4XZLMxmtbwI9SSktSJNQj0Jg40w3ChGGsXwQBhuFBcPFYuGX/3P6HCxZGExtiCvO%2Bvj/xMA6BX7TyTPHkifO5C%2BeDTZdzyZyeb0/5rNwmyovfqHqRDO/vPrqdXC2Eix9KJ86cJi5Wi%2BalE%2BPpqPLyqGG8V8j54KEoBKemRX/Xe%2BPFTGV77m0uxjH5gs4ytfkF/65MiBV0o5U/29D06uXz63ydoRM1nYvLv%2B7e/Vn9mfvnz6fLO7LYoiHJmoHZlIt/3w/z62oFi9OF8zlq0Zy68Yy1ctslCIggBAFxQhPLkn/eYLjUd2pZOzpc/9N3V0onZ0In1yb3rmj/UkXDGWr1uarVuerV%2BWjy/Ku3%2BIlEAAoKNms/DNFxqffbqx51jvnmM387DjcLLjcHLf1kYIYcFAsXZZ/pYV2bUrsnXLsoG028dHmwgAdEhehPuea/zvJwaOT1bsfHpiprZlb7plbxpCaKRh7dLslsuzn9000%2B3jYr4EADrhmf3pn3xrcNfLvXvWP0ezWdh6MD12uiYAfUAAoFxTs7U/fmjw69/1u0bP8ZcSSrTraPKfvja073jlT/zpSwIAZfnmC/U/uH9ojrfzQ%2BcJAJTivucaf/zQoMer6GUCAO336S0D//3RgW4fBbwJW5PQZl/a1jD9qQQBgHZ6Zn9670OD3T4KmBMBgLY5dDL5j18ZaubdPg6YGwGAtvn9%2BwdPTlfsKV9iJgDQHl/Z3nh6n7fkUCUCAG1wfLL25w%2B78EvFCAC0wWe2DEzM2PyhYgQA5uuVqdoXt3qkhuoRAJiv//t0Y6rp9J/qcdoC85IX4cvbG535XgP1cPWSbPXifNWifMnCYmxBcdFgMTJQDDdCmhT1JGRFmG7WZpphJqudnAovn05ePl17eaJ2%2BFRtz7Fkz/HktH0qziEAMC9P7k1PlPwBL%2BOL8nde2bz18uzqJVl63kV7vRbqA8WCgRBCsfyiEMJrH0k4OlHbfSz57kvp9kPp8y8lJ6f0IGoCAPNy/44ST/%2BvX5n9vZtmrl/ZtheKji0oxhZkN6x69QvuO5FsPZA%2BsSfdsi895QmG%2BAgAtC4vwqO7Srn3f3So%2BJV3Td%2B2plnGFz9rfDQfH81/csNsXoQXXkqf2Js%2B/GL9xaMuDcZCAKB1O4%2BUsqs%2BPpr/9k9PLbuoc%2B%2BUSGph/fJs/fLs7980s/9E8tD36t/aWf%2BeEvQ7AYDWbT3Y/tP/RcPFb//05LKLuvZRAitH87tvmLn7hpl9J5Kvba9/47uNl0/bHepPAgCtKyMAv3L7dBen/7nGR/N73jbzD2%2Bd2by7/pXt9c2765n33PUXAYDWfe9ImzdJ1i/P3lHyvv%2BFSmrh1subt17ePDJR%2B8KzjS9va3jhXd8QAGhRXoTDp9ocgPdd01vT/1xLFhT3vG3m52%2Ba%2BcZ3G5t3e%2B1dPxAAaNHhU0nbt0RuWt27AThjsB7et3H2fRtnu30gtIGr/NCig6%2B0eSdk8UixaLgndv%2BJhABAi461%2B96YsQWmPx0lANCitr8ArpEKAB0lANCi6XZvg3szDx0mANCi6XavANq%2BpwTnJwDQotl23wI0MVPz9gU6yd82aNFACbfCf2unO7PpHAGAFg3U23/N9m%2Be8%2BIdOkcAoEWDJZysn56p/dcHB3N3A9ERAgAtWlzOQ1uP7qr/528Mee0aHSAA0KKlpb2v/4Ed9d/8/PC%2BE349KZe/YdCiZQtL3KnZejD91b8c%2BaMHBw%2Bd9EtKWdxyAC1aOFgsGi6Ol/aJ8M083Le18cVtjRtXZe9eP3vL5dlQCZediZkAQOvWLs0e213uL1FRhMf3pI/vSQfrYdOq5s2XZW8dz1aMukRAGwgAtG7tsvyx3R36XtPN8Oiu%2BqO76iGEJQuKay7NNizP1i3LrxzLBvwe0xJ/caB1163MuvJ9j0zUHtxZf3BnPYSQJmH14vzqpdm6pfnVS7MrxvK6qwbMjQDwQ7YdTO%2B6d2G3j6IyNl6aXTxUvNLVl7hleXjxaPLi0eSr20MIoZGGKy7J1y7L1i7N1y7NLlucJx4s4w0IALQuqYVbLm9%2B/flGtw/kB2az8MLh5IXDr64CBuvhqiXZ%2BuX5huXZhuXZJSMuI/MDAgDz8u51vRWA15huhq0H060H0xAaIYRlFxXXLM9uWJW9dVVzic%2BfiZ4AwLxctzK7/JL8%2By9XY9/9pZO1l07W799RD2HwssX5pvHs7Wua167IbBPFSQBgvu66dvYPHxjs9lFcsD3Hkj3Hks8/27h4qHj7Fc13XtnctEoJ4iIAMF/vWT/72aca1X1zwytTta9sb3xle2PJguI962d/ckNzWWlvuaCnVPWvLPSONAkffvtMt4%2BiDY5M1D71xMA/%2BcTIv//i8NaDJXzcAT3GCgDa4O1XNG%2B5vPnY9/vhF6oIYfPudPPu4Y2XZnffOHPTZd151oEOsAKA9vj1H5seLecF0d2y9WD67%2B4b/q0vDO8%2BZlD0Jz9XaI/R4eI37pjqv4uoW/amv/ZXI3/67cGZZrcPhXYTAGibGy/L/tnfmu72UbRfXoTPPdP49f8zsuOwidFX/Dihnd67cfbnb%2BqHC8I/au/x5F/89ch9W3v3qTculABAm/3izTP/uC9uCvpRzTz80YODf/7wYF9d64iYAED7/d23znz0x6cbfXoj5Wefbvz%2BN6v34Bs/SgCgFO9eP/u7Hzy94uL%2BfKLqa883/uKRgW4fBfMlAFCWq5bk/%2BVDk%2B9e1593z3zmqYEvuR5QcQIAJRoZKD56x9Tv3DU5vqgPlwJ/%2BvCgRwQqzQ8PSnf9yuwPf%2B70P71telF/PSk20wy/%2B/WhrA/TFgsBgE6oJ%2BH9183%2Bt1%2BY%2BPDbZvopA7uOJl/aZiOoqgQAOmewHj60aeYv/sHEb9wxtXZpn5w5f2LzwMRM3z0AHYd%2BeHcVVEs9CXesa96xrvnC4eSbLzQe2FE/PlnhAfrKVO0LzzbuvrE/H33obwIAXbN2ab526fRH3jH91L7029%2Brb95dPzJRyRLct7XxoU0zqQ2FqhEAfsg1l2Yf%2B8Bkt48i/NInRw68Ess4SWrhhlXZDauyEKZfPJo8trv%2B1L70%2BUPpdHVuHz06UXtkV/2dV1bniAkhCAD0lDVj%2BZqxmbtvCM087DySbj2QbD2YbjuUnuj5PaIHdgpA9QgA9KJ6EtYvy9Yvy/7OW2dDCAdOJNsPJdsOpdsOpd9/OSl67zaiJ/aks1no17df9CsBgApYMZqvGM3vWNcMIUzO1p5/Kdl%2BMN12KH3%2BUNIjd%2BBMzdae2Z/e6OPDKkUAoGKGG8Wm8WzTeBZCKELYeyx57kD63MH02QPpkVPdjMHWgwJQMQIAFVYL4bLF%2BWWL8/dunA0h7DuePLk3/c7368/sT5sdf8xgx2EbQBUjANA/xhfl44vyn7l2dnK29vCL6f07Gk/uTTt2wcDnhVWOAEAfGm4UP7Gu%2BRPrmodOJn/zbOOLWxsduKn0xFTt1HRtoU%2BLqQ7Fhn62/KL8I%2B%2BY/rNfnLjzmtkOXB/o7kUILpQAQP8bHSp%2B9V3T//ZvTw43yj09P3zKSKkSPy2IxU2XZf/mfVMDZe77Huv5B9Y4lwBARK5dkf3z26fK%2B/oVen0FQQAgNnesa65fVtbd%2BtNNK4AqEQCISy2Eu2%2BcLemLz1gBVIoAQHQ2jTdLuhKQmCiV4scF0Rmoh42XlrILNFj3EECVCADEaOnCUt4UMejR0koRAIjR6FApp%2BpWANUiABCjwUYpX3bYCqBSBABa97lnGp96fOB0b7yR/4Kcni7lmJcstAKoEgGA1p2arn1888BHPjHyl08MTHbiXTtts%2B9EKUe7/KKOv4SaeRAAmK9T07X/%2BdjARz4x8ldPViMDRRGeP9T%2Bd/cP1MPosBVAlQgAtMfJqdr/%2BM7Ah//XyJ89PPjSyZ7OwNP70xNT7T/CZeXcWUR5XLKBdjo9U/vrpxufe6Zx25XND14/W95LF%2Bbj01sGyviya8YEoGIEANovL8JDO%2BsP7ayvX57duaF5%2B1XNoZLfwzx3D%2B6sb9lbymc3rl/ei7XjPAQASvT8ofT5Q%2BmffHvg9quaP7WhuaHbI/LFo8kf3D9Y0hffsNwKoGIEAEo3NVv76vbGV7c3Llucv%2Buq5jvWNC%2B/pAuzctuh9D98caiky9SNNFy1xAqgYgQAOmfPseTjmwc%2BvnlgfDR/x5rmbVc21y7tRAmaefjMUwOf3DzQLO27Xb8yq7unpGoEALpg34nk01sGPr1lYNFwcf14dt3K7PqV2crR9o/nZh4e3Fn/1OMD%2B0%2BUO55vv8qboKtHAKCbjk/WHthRf2BHPYSwZEGxcUW2Ziy/cixbM5YvHmn9unEzD88fSr/9Yv3BnfVjp0u/J7WehLddIQDVIwDQK45MnInBq39cNFysviRftjBfsrBYurBYsiBfPFIM1cNgvRhshMF6kSYhy8NsVpuYCaemakdP1146mew5lrx4NHnhcNrJT2e8YVVz4WCv3ObE3AkA9Kjjk7Xj%2B9IQSrlls73ef31ZHzFGqVy1Aebl6qX5pnH3/1SSAADz8rObZrp9CLRIAIDWrV2a37bG5d%2BqEgCgRWkSfu3Hpmo9/eI7zkcAgBZ94LoZL4CrNAEAWnHFWP4LN9v9rzYBAC7Y6FDxW3dODrqNvOIEALgw9ST8q5%2BaWnaRJ78qT8GBC9BIw798z9RbVrjxvx8IADBXQ43iX9859VaPffULAQDm5JKR4jfvnOrND7mkNQIArYvnFvibV2cfvWNqdMi%2Bf18RAGjdz90ws3Zp9tDOxiO70omZ/qzBQD3cc%2Bv0%2B6/zurc%2BJADQunoSbl6d3bw6a%2Bbhyb31h3bWv/P99NR0n5SgFsKPr2v%2Bo1unlyxw4t%2BfBADaoJ6EW1Y3b1ndzIuw7WC6eXe6eXd918sVvs1606rsnlunr%2B7IJ1bSLQIA7ZTUwltWZG9Zkd3ztpkjE7XHd9ef2pc%2BdyB9ufyP5WqLoXpxx7rmz1w7u3qx0d//BADKsmRBcec1s3deMxtC2HcieWZ/%2Buz%2BdOvB9PCpnotBPQnXrsxuW9N819XNBQM2fGIhANAJ46P5%2BGj%2B3mtmQwgnJmsvHE52HE7P/HcXFweXLCg2Xprdurp56xWZuR%2Bh2qMfu77bxwBROzlV23M82XMs2XM82Xss2XeiduRU0ixnA2Z0uFi1KL9yLN%2BwPNuwPPM6h8hZAUCXXTRUbLw023jpDx6wKkI4frp2ZKJ2%2BGRyeKJ2/HTt1HTt1HTt5HTt5HRtYjrMZrXZPGR5aGa12TyEEBpJqKdFIwn1NAykxYLBMDpUXDxcLBoqLh4ulizIxxfl46PFiNN8ziEA0HNqISweKRaPFGvdhEOZKnybGgDzIQAAkRIAgEgJAECkBAAgUgIAECkBAIiUAABESgAAIiUAAJESAIBICQBApAQAIFICABApAQCIlAAAREoAACIlAACREgCASAkAQKQEACBSAgAQKQEAiJQAAERKAAAiJQAAkRIAgEgJAECkBAAgUgIAECkBAIiUAABESgAAIiUAAJESAIBICQBApAQAIFICABApAQCIlAAAREoAACIlAACREgCASAkAQKQEACBSAgAQKQEAiJQAAERKAAAiJQAAkRIAgEgJAECkBAAgUgIAECkBAIiUAABESgAAIiUAAJESAIBICQBApAQAIFICABApAQCIlAAAREoAACIlAACREgCASAkAQKQEACBSAgAQKQEAiJQAAERKAAAiJQAAkRIAgEgJAECkBAAgUgIAECkBAIiUAABESgAAIiUAAJESAIBICQBApAQAIFICABApAQCIlAAAREoAACIlAACREgCASAkAQKQEACBSAgAQKQEAiJQAAERKAAAiJQAAkRIAgEgJAECkBAAgUgIAECkBAIiUAABESgAAIiUAAJESAIBICQBApAQAIFICABApAQCIlAAAREoAACIlAACREgCASCV33buw28cAQBdYAQBESgAAIiUAAJESAIBICQBApAQAIFJJCMGdoACxuevehVYAAJESAIBICQBApAQAIFKvBsB1YIB4nJn5VgAAkRIAgEj9IAB2gQBicHbaWwEAREoAACIlAACR%2BqEAuAwA0N/OnfNWAACRem0ALAIA%2BtVrJrwVAECkBAAgUq8TALtAAP3nR2e7FQBApF4/ABYBAP3kdae6FQBApAQAIFJvGAC7QAD94Y3muRUAQKTOFwCLAICqO88ktwIAiNSbBMAiAKC6zj/DrQAAIvXmAbAIAKiiN53ec1oBaABAtcxlbtsCAojUXANgEQBQFXOc2BewAtAAgN4391ltCwggUhcWAIsAgF52QVP6glcAGgDQmy50PtsCAohUKwGwCADoNS1M5hZXABoA0Dtam8mtbwFpAEAvaHkauwYAEKl5BcAiAKC75jOH57sC0ACAbpnnBG7DFpAGAHTe/Gdve64BaABAJ7Vl6rbtIrAGAHRGu%2BZtO%2B8C0gCAsrVx0rb5NlANAChPe2ds%2B58D0ACAMrR9upbyIJgGALRXGXO1rCeBNQCgXUqaqCW%2BCkIDAOavvFla7ruANABgPkqdoqW/DE4DAFpT9vysLbvqtlK/wVmf/%2BVTnflGAFXXmVPnzr0O2lIAYC46Ni07%2BnkAGgBwfp2ck53bAjqX7SCA1%2Bj8KXJ3PhHMUgDgXF2Zit1ZAZxlKQBErosnxF3%2BTGBLASBm3Z2BXV4BnGUpAESlF05/u7wCOKsX/l0AdEaPTLxeWQGcZSkA9LEeGf1n9FwAzpABoM/01Og/o0cDcIYMAH2gB0f/GT0dgLOUAKicnp37Z1UjAGfIAFAJvT/6z6hSAM5SAqAHVWXun1XJAJwhA0CPqNzoP6PCATiXGAAdVtGhf64%2BCcBZSgCUqg/m/ln9FoDX0ANgnvpp4r/G/wPSAYuGFd2Q0wAAAABJRU5ErkJggg%3D%3D%22%2C%20%22sizes%22%3A%20%22512x512%22%2C%20%22type%22%3A%20%22image/png%22%2C%20%22purpose%22%3A%20%22any%20maskable%22%7D%5D%7D">
+<link rel="apple-touch-icon" href="data:image/png;base64,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ACBSAgAQKQEAiJQAAERKAAAiJQAAkRIAgEgJAECkBAAgUgIAECkBAIiUAABESgAAIiUAAJESAIBICQBApAQAIFICABApAQCIlAAAREoAACIlAACREgCASAkAQKQEACBSAgAQKQEAiJQAAERKAAAiJQAAkRIAgEgJAECkBAAgUgIAECkBAIiUAABESgAAIiUAAJESAIBICQBApAQAIFICABApAQCIlAAAREoAACIlAACREgCASAkAQKQEACBSAgAQKQEAiJQAAERKAAAiJQAAkRIAgEgJAECkBAAgUgIAECkBAIiUAABESgAAIiUAAJESAIBICQBApAQAIFICABApAQCIlAAAREoAACIlAACREgCASAkAQKQEACBSAgAQKQEAiJQAAERKAAAiJQAAkRIAgEgJAECkBAAgUgIAECkBAIiUAABESgAAIiUAAJESAIBICQBApAQAIFICABApAQCIlAAAREoAACIlAACREgCASCV33buw28cAQBdYAQBESgAAIiUAAJESAIBICQBApAQAIFJJCMGdoACxuevehVYAAJESAIBICQBApAQAIFKvBsB1YIB4nJn5VgAAkRIAgEj9IAB2gQBicHbaWwEAREoAACIlAACR+qEAuAwA0N/OnfNWAACRem0ALAIA+tVrJrwVAECkBAAgUq8TALtAAP3nR2e7FQBApF4/ABYBAP3kdae6FQBApAQAIFJvGAC7QAD94Y3muRUAQKTOFwCLAICqO88ktwIAiNSbBMAiAKC6zj/DrQAAIvXmAbAIAKiiN53ec1oBaABAtcxlbtsCAojUXANgEQBQFXOc2BewAtAAgN4391ltCwggUhcWAIsAgF52QVP6glcAGgDQmy50PtsCAohUKwGwCADoNS1M5hZXABoA0Dtam8mtbwFpAEAvaHkauwYAEKl5BcAiAKC75jOH57sC0ACAbpnnBG7DFpAGAHTe/Gdve64BaABAJ7Vl6rbtIrAGAHRGu+ZtO+8C0gCAsrVx0rb5NlANAChPe2ds+58D0ACAMrR9upbyIJgGALRXGXO1rCeBNQCgXUqaqCW+CkIDAOavvFla7ruANABgPkqdoqW/DE4DAFpT9vysLbvqtlK/wVmf/+VTnflGAFXXmVPnzr0O2lIAYC46Ni07+nkAGgBwfp2ck53bAjqX7SCA1+j8KXJ3PhHMUgDgXF2Zit1ZAZxlKQBErosnxF3+TGBLASBm3Z2BXV4BnGUpAESlF05/u7wCOKsX/l0AdEaPTLxeWQGcZSkA9LEeGf1n9FwAzpABoM/01Og/o0cDcIYMAH2gB0f/GT0dgLOUAKicnp37Z1UjAGfIAFAJvT/6z6hSAM5SAqAHVWXun1XJAJwhA0CPqNzoP6PCATiXGAAdVtGhf64+CcBZSgCUqg/m/ln9FoDX0ANgnvpp4r/G/wPSAYuGFd2Q0wAAAABJRU5ErkJggg==">
+<link rel="icon" href="data:image/png;base64,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ACBSAgAQKQEAiJQAAERKAAAiJQAAkRIAgEgJAECkBAAgUgIAECkBAIiUAABESgAAIiUAAJESAIBICQBApAQAIFICABApAQCIlAAAREoAACIlAACREgCASAkAQKQEACBSAgAQKQEAiJQAAERKAAAiJQAAkRIAgEgJAECkBAAgUgIAECkBAIiUAABESgAAIiUAAJESAIBICQBApAQAIFICABApAQCIlAAAREoAACIlAACREgCASAkAQKQEACBSAgAQKQEAiJQAAERKAAAiJQAAkRIAgEgJAECkBAAgUgIAECkBAIiUAABESgAAIiUAAJESAIBICQBApAQAIFICABApAQCIlAAAREoAACIlAACREgCASAkAQKQEACBSAgAQKQEAiJQAAERKAAAiJQAAkRIAgEgJAECkBAAgUgIAECkBAIiUAABESgAAIiUAAJESAIBICQBApAQAIFICABApAQCIlAAAREoAACIlAACREgCASCV33buw28cAQBdYAQBESgAAIiUAAJESAIBICQBApAQAIFJJCMGdoACxuevehVYAAJESAIBICQBApAQAIFKvBsB1YIB4nJn5VgAAkRIAgEj9IAB2gQBicHbaWwEAREoAACIlAACR+qEAuAwA0N/OnfNWAACRem0ALAIA+tVrJrwVAECkBAAgUq8TALtAAP3nR2e7FQBApF4/ABYBAP3kdae6FQBApAQAIFJvGAC7QAD94Y3muRUAQKTOFwCLAICqO88ktwIAiNSbBMAiAKC6zj/DrQAAIvXmAbAIAKiiN53ec1oBaABAtcxlbtsCAojUXANgEQBQFXOc2BewAtAAgN4391ltCwggUhcWAIsAgF52QVP6glcAGgDQmy50PtsCAohUKwGwCADoNS1M5hZXABoA0Dtam8mtbwFpAEAvaHkauwYAEKl5BcAiAKC75jOH57sC0ACAbpnnBG7DFpAGAHTe/Gdve64BaABAJ7Vl6rbtIrAGAHRGu+ZtO+8C0gCAsrVx0rb5NlANAChPe2ds+58D0ACAMrR9upbyIJgGALRXGXO1rCeBNQCgXUqaqCW+CkIDAOavvFla7ruANABgPkqdoqW/DE4DAFpT9vysLbvqtlK/wVmf/+VTnflGAFXXmVPnzr0O2lIAYC46Ni07+nkAGgBwfp2ck53bAjqX7SCA1+j8KXJ3PhHMUgDgXF2Zit1ZAZxlKQBErosnxF3+TGBLASBm3Z2BXV4BnGUpAESlF05/u7wCOKsX/l0AdEaPTLxeWQGcZSkA9LEeGf1n9FwAzpABoM/01Og/o0cDcIYMAH2gB0f/GT0dgLOUAKicnp37Z1UjAGfIAFAJvT/6z6hSAM5SAqAHVWXun1XJAJwhA0CPqNzoP6PCATiXGAAdVtGhf64+CcBZSgCUqg/m/ln9FoDX0ANgnvpp4r/G/wPSAYuGFd2Q0wAAAABJRU5ErkJggg==">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+:root{
+  --ink:#16233A;        /* deep structural indigo */
+  --ink-2:#233754;
+  --paper:#F7F5F0;       /* drafting paper */
+  --paper-2:#FFFFFF;
+  --line:#D8D3C6;
+  --amber:#C98A2E;       /* technical amber accent */
+  --amber-ink:#5C3D0F;
+  --verde:#3E8E4F;
+  --amarillo:#D9A61F;
+  --naranja:#D4732A;
+  --rojo:#C13E3E;
+  --muted:#6B7280;
+  --blue:#2F6FE0;        /* botón Anterior, habilitado */
+  --claude-orange:#CC785C; /* botón Guardar, naranja tipo Claude */
+  --radius:10px;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+html,body{height:100%;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  height:100vh;
+  height:100dvh; /* real mobile viewport height, accounts for browser chrome */
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+::selection{background:var(--amber);color:#fff;}
+h1,h2,h3,.display{font-family:'Barlow Condensed',sans-serif;letter-spacing:.01em;}
+.mono{font-family:'JetBrains Mono',monospace;}
+
+/* ---------- Header ---------- */
+header.app{
+  flex:none;
+  background:var(--ink);
+  color:#EDE9DD;
+  padding:14px 16px;
+  padding-top:calc(14px + env(safe-area-inset-top));
+  display:flex;align-items:center;gap:12px;
+  box-shadow:0 2px 10px rgba(0,0,0,.15);
+}
+header.app .badge-logo{
+  width:38px;height:38px;border-radius:8px;
+  background:linear-gradient(135deg,var(--amber),#8f5f1e);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;color:#1a1206;
+  flex:none;
+}
+header.app .titles{flex:1;min-width:0;}
+header.app .titles .t1{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:17px;line-height:1.1;color:#fff;}
+header.app .titles .t2{font-size:11px;color:#B9C2D0;letter-spacing:.03em;text-transform:uppercase;}
+header.app .hab-badge{
+  padding:6px 12px;border-radius:20px;font-size:12px;font-weight:700;
+  font-family:'Barlow Condensed',sans-serif;letter-spacing:.03em;text-transform:uppercase;
+  white-space:nowrap;
+  border:1px solid rgba(255,255,255,.25);
+}
+
+/* ---------- Sheet rail (progress) ---------- */
+.rail{
+  flex:none;
+  display:flex;gap:6px;overflow-x:auto;padding:10px 12px;background:var(--ink-2);
+  scrollbar-width:none;
+}
+.rail::-webkit-scrollbar{display:none;}
+.rail button{
+  flex:none;border:none;cursor:pointer;
+  background:rgba(255,255,255,.06);color:#C6CEDB;
+  padding:6px 10px;border-radius:7px;font-size:11.5px;
+  font-family:'JetBrains Mono',monospace;
+  display:flex;align-items:center;gap:6px;
+  transition:.15s;
+}
+.rail button.done{color:#EDE9DD;background:rgba(255,255,255,.12);}
+.rail button.active{background:var(--amber);color:#1a1206;font-weight:600;}
+.rail button .dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.5;}
+
+/* ---------- Layout ---------- */
+main{
+  flex:1 1 auto;
+  min-height:0; /* allow inner scroll instead of pushing footer off-screen */
+  max-width:820px;width:100%;margin:0 auto;padding:16px;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  display:flex;flex-direction:column;
+}
+.section{
+  background:var(--paper-2);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  margin-bottom:14px;
+  overflow:hidden;
+  display:none;
+  flex:1;
+  flex-direction:column;
+}
+.section.show{display:flex;animation:fade .25s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+.section .shead{
+  flex:none;
+  padding:14px 16px;border-bottom:1px solid var(--line);
+  display:flex;align-items:baseline;gap:10px;background:#FBFAF6;
+}
+.section .shead .num{
+  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--amber-ink);
+  background:#F1E3C6;padding:2px 7px;border-radius:5px;font-weight:600;flex:none;
+}
+.section .shead h2{margin:0;font-size:21px;font-weight:600;}
+.section .shead p{margin:2px 0 0;font-size:12.5px;color:var(--muted);width:100%;}
+.sbody{padding:16px;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+
+.field{margin-bottom:16px;}
+.field label.flabel{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--ink-2);}
+.field .hint{font-size:11.5px;color:var(--muted);margin-top:4px;}
+input[type=text],input[type=number],input[type=tel],input[type=email],input[type=date],input[type=time],textarea,select{
+  width:100%;padding:10px 11px;border:1px solid var(--line);border-radius:8px;
+  font-family:'Inter',sans-serif;font-size:14.5px;background:#fff;color:var(--ink);
+}
+textarea{min-height:70px;resize:vertical;}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--amber);outline-offset:1px;border-color:var(--amber);}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+@media(max-width:520px){.grid3{grid-template-columns:1fr 1fr;}}
+
+/* option pills (replace radios) */
+.opts{display:flex;flex-wrap:wrap;gap:6px;}
+.opt{
+  border:1px solid var(--line);background:#fff;color:var(--ink-2);
+  padding:8px 12px;border-radius:8px;font-size:13px;cursor:pointer;
+  user-select:none;transition:.12s;
+}
+.opt:hover{border-color:var(--amber);}
+.opt.sel{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:600;}
+.opt.sel.verde{background:var(--verde);border-color:var(--verde);}
+.opt.sel.amarillo{background:var(--amarillo);border-color:var(--amarillo);color:#3a2a05;}
+.opt.sel.naranja{background:var(--naranja);border-color:var(--naranja);}
+.opt.sel.rojo{background:var(--rojo);border-color:var(--rojo);}
+.opt.sel.blue{background:var(--blue);border-color:var(--blue);}
+
+/* damage scale rows */
+.scale-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:9px 0;border-bottom:1px dashed var(--line);}
+.scale-row:last-child{border-bottom:none;}
+.scale-row .sname{font-size:13.5px;}
+.scale-opts{display:flex;gap:4px;}
+.scale-opts .opt{padding:6px 8px;font-size:11.5px;}
+
+/* percentage table */
+.pct-table{width:100%;border-collapse:collapse;font-size:12px;}
+.pct-table th{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:10.5px;color:var(--muted);text-align:center;padding:6px 2px;text-transform:uppercase;}
+.pct-table td{padding:5px 3px;text-align:center;}
+.pct-table td.rowlabel{text-align:left;font-size:12.5px;padding-right:6px;font-weight:500;}
+.pct-table input{width:100%;padding:6px 3px;text-align:center;font-size:12px;border-radius:6px;}
+.pct-sum{font-size:11px;color:var(--muted);margin-top:4px;}
+.pct-sum.bad{color:var(--rojo);font-weight:600;}
+
+/* classification result card */
+.class-card{
+  margin-top:12px;border-radius:9px;padding:11px 13px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  background:#F3F1E9;border:1px solid var(--line);
+}
+.class-card .clabel{font-size:12.5px;color:var(--muted);}
+.class-card .cval{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;padding:4px 10px;border-radius:6px;color:#fff;}
+.cval.verde{background:var(--verde);}
+.cval.amarillo{background:var(--amarillo);color:#3a2a05;}
+.cval.naranja{background:var(--naranja);}
+.cval.rojo{background:var(--rojo);}
+.cval.pending{background:#C9C4B4;color:#5c5748;}
+
+/* global habitability hero */
+.global-hero{
+  border-radius:12px;padding:18px;color:#fff;position:relative;overflow:hidden;
+  background:#C9C4B4;transition:.25s;
+}
+.global-hero.verde{background:linear-gradient(135deg,#3E8E4F,#2E6E3C);}
+.global-hero.amarillo{background:linear-gradient(135deg,#D9A61F,#B5860F);color:#3a2a05;}
+.global-hero.naranja{background:linear-gradient(135deg,#D4732A,#AD5A1C);}
+.global-hero.rojo{background:linear-gradient(135deg,#C13E3E,#992F2F);}
+.global-hero .gh-label{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;opacity:.85;}
+.global-hero .gh-val{font-family:'Barlow Condensed',sans-serif;font-size:34px;font-weight:700;line-height:1.05;margin:2px 0 6px;}
+.global-hero .gh-note{font-size:12px;opacity:.9;}
+.gh-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:12px;}
+.gh-chip{background:rgba(255,255,255,.18);border-radius:7px;padding:6px 4px;text-align:center;}
+.gh-chip .k{font-size:10px;opacity:.85;font-family:'JetBrains Mono',monospace;}
+.gh-chip .v{font-size:12px;font-weight:700;margin-top:2px;}
+
+/* checkbox tiles for recommendations */
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+@media(max-width:480px){.tiles{grid-template-columns:1fr;}}
+.tile{
+  border:1px solid var(--line);border-radius:8px;padding:9px 10px;
+  display:flex;align-items:center;gap:9px;cursor:pointer;font-size:13px;background:#fff;
+}
+.tile input{width:16px;height:16px;flex:none;}
+.tile.on{border-color:var(--amber);background:#FBF3E3;}
+
+/* photos */
+.photo-drop{
+  border:2px dashed var(--line);border-radius:10px;padding:20px;text-align:center;
+  cursor:pointer;background:#FBFAF6;color:var(--muted);font-size:13px;
+}
+.photo-drop:hover{border-color:var(--amber);color:var(--amber-ink);}
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-top:12px;}
+.photo-card{border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff;}
+.photo-card img{width:100%;height:90px;object-fit:cover;display:block;background:#eee;}
+.photo-card .pmeta{padding:6px 7px;}
+.photo-card input{width:100%;font-size:11px;padding:4px 5px;border-radius:5px;margin-top:3px;}
+.photo-card .prm{width:100%;margin-top:5px;background:none;border:none;color:var(--rojo);font-size:11px;cursor:pointer;padding:2px;}
+
+.matricula-box{border:1px solid var(--line);border-radius:9px;padding:12px;background:#FBFAF6;}
+.matricula-preview{margin-top:10px;max-width:100%;border-radius:7px;border:1px solid var(--line);}
+
+/* sketch canvas */
+canvas#sketch{width:100%;touch-action:none;border:1px solid var(--line);border-radius:8px;background:
+  repeating-linear-gradient(0deg,#fff,#fff 19px,#EDE9DD 20px),
+  repeating-linear-gradient(90deg,#fff,#fff 19px,#EDE9DD 20px);}
+.sketch-tools{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;}
+.sketch-tools button{border:1px solid var(--line);background:#fff;border-radius:7px;padding:7px 11px;font-size:12.5px;cursor:pointer;}
+.sketch-tools button:hover{border-color:var(--amber);}
+
+/* footer nav */
+.footnav{
+  flex:none;
+  background:#fff;border-top:1px solid var(--line);
+  display:flex;flex-direction:column;gap:8px;padding:10px 14px;
+  padding-bottom:calc(10px + env(safe-area-inset-bottom));
+  box-shadow:0 -4px 14px rgba(0,0,0,.06);
+}
+.footnav-row{display:flex;gap:8px;align-items:center;}
+.footnav button{
+  border:none;border-radius:9px;cursor:pointer;
+  font-family:'Inter',sans-serif;
+  display:flex;align-items:center;justify-content:center;gap:5px;
+  white-space:nowrap;
+}
+#btnSave{flex:1;padding:12px 8px;font-size:13px;font-weight:700;}
+#btnPrev{flex:1;padding:12px 8px;font-size:13px;font-weight:700;}
+#btnNext{flex:1;padding:12px 8px;font-size:13px;font-weight:700;min-width:0;}
+.footnav button:disabled{opacity:.35;cursor:default;filter:grayscale(.4);}
+.btn-ghost{background:#F1EFE8;color:var(--ink-2);}
+.btn-primary{background:var(--ink);color:#fff;}
+.btn-blue{background:var(--blue);color:#fff;}
+.btn-orange{background:var(--claude-orange);color:#fff;}
+
+.toast{
+  position:fixed;bottom:74px;left:50%;transform:translateX(-50%);
+  background:var(--ink);color:#fff;padding:10px 18px;border-radius:14px;font-size:12.5px;
+  opacity:0;pointer-events:none;transition:.25s;z-index:9999;
+  max-width:88vw;width:max-content;text-align:center;line-height:1.4;
+  box-shadow:0 6px 20px rgba(0,0,0,.3);
+}
+.toast.show{opacity:1;transform:translate(-50%,-4px);}
+
+.small-note{font-size:11.5px;color:var(--muted);line-height:1.5;}
+
+/* finishing / share card */
+.finish-card{
+  margin-top:18px;border-radius:14px;padding:20px;text-align:center;
+  background:linear-gradient(160deg,#16233A,#233754);color:#EDE9DD;
+}
+.finish-card .fc-title{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;}
+.finish-card .fc-sub{font-size:12.5px;color:#B9C2D0;margin:4px 0 16px;}
+.finish-card .fc-main{
+  width:100%;border:none;border-radius:11px;padding:15px;
+  background:var(--blue);color:#fff;font-weight:700;font-size:16px;cursor:pointer;
+  font-family:'Inter',sans-serif;
+}
+.finish-card .fc-main:active{transform:scale(.98);}
+.fc-row{display:flex;gap:8px;margin-top:12px;}
+.fc-chip{
+  flex:1 1 0;min-width:0;border:none;border-radius:10px;padding:12px 6px;
+  background:rgba(255,255,255,.08);color:#EDE9DD;font-size:13px;font-weight:600;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:4px;font-family:'Inter',sans-serif;
+}
+.fc-chip span{font-size:18px;}
+.fc-chip.share{background:var(--claude-orange);color:#fff;}
+.fc-chip.dl{background:var(--claude-orange);color:#fff;}
+.finish-card .hint{color:#93A0B4;margin-top:14px;}
+</style>
+</head>
+<body>
+
+<header class="app">
+  <div class="badge-logo">HS</div>
+  <div class="titles">
+    <div class="t1">HogarSeguro</div>
+    <div class="t2">Fuente: IDIGER / AIS · Formato FUV-01</div>
+  </div>
+  <div id="habBadge" class="hab-badge">Sin evaluar</div>
+</header>
+
+<nav class="rail" id="rail"></nav>
+
+<main id="main"></main>
+
+<div class="footnav">
+  <div class="footnav-row">
+    <button class="btn-orange" id="btnSave">💾 Guardar</button>
+    <button class="btn-blue" id="btnPrev">← Anterior</button>
+    <button class="btn-primary" id="btnNext">Siguiente →</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   HogarSeguro · Inspección de edificaciones después de un sismo
+   App interactiva de campo — Andrés Montoya, ICC SAS
+   ========================================================= */
+
+const SEV = {'Habitable':1,'Uso restringido':2,'No habitable':3,'Peligro de colapso':4};
+const SEV_COLOR = {1:'verde',2:'amarillo',3:'naranja',4:'rojo'};
+const SEV_LABEL = {1:'HABITABLE',2:'USO RESTRINGIDO',3:'NO HABITABLE',4:'PELIGRO DE COLAPSO'};
+
+let STATE = {
+  // catastral
+  formulario_numero:'',
+  tipo_inspeccion:'',
+  direccion:'', nombre_edificacion:'', uso_edificacion:'', uso_planta_baja:'',
+  num_pisos:'', num_sotanos:'', dim_frente:'', dim_fondo:'',
+  sistema_estructural:'', tipo_entrepiso:'', periodo_construccion:'',
+  colapso:'', desviacion:'', falla_cimentacion:'', classA:'',
+  danos_arq:{}, classC:'',
+  falla_talud:'', asentamiento:'', grietas_terreno:'', classB:'',
+  nivel_mayor_dano:'', pct:{
+    columnas:{Ninguno:'',Leve:'',Moderado:'',Fuerte:'',Severo:''},
+    vigas:{Ninguno:'',Leve:'',Moderado:'',Fuerte:'',Severo:''},
+    nudos:{Ninguno:'',Leve:'',Moderado:'',Fuerte:'',Severo:''},
+    entrepisos:{Ninguno:'',Leve:'',Moderado:'',Fuerte:'',Severo:''},
+  }, classD:'',
+  edif_vecina:'', evento_inminente:'', classE:'',
+  clas_previa:'', clas_previa_cual:'', global_override:'', pct_area_afectada:'',
+  rec_visita:{}, rec_intervencion:{}, rec_medidas:{}, rec_desconectar:{}, lugares_medidas:'',
+  sketch:null,
+  pre:{}, // condiciones pre-existentes
+  hubo_muertos:'', num_fallecidos:'', num_heridos:'', num_afectados:'',
+  edif_habitada:'', num_ocupantes:'', num_unidades:'', num_unidades_no_hab:'',
+  contacto_nombre:'', contacto_telefono:'', contacto_email:'',
+  comentarios:'',
+  codigo_lider:'', num_evaluadores:'', otro_inspector:'', nombre_lider:'',
+  ingeniero_matricula:'90118 CPIC Antioquia', ingeniero_nombre:'Andrés Montoya',
+  fecha_inspeccion:'', hora_inspeccion:'',
+  email_destino:'', email_asunto:'',
+  matricula_file:null, matricula_name:'',
+  photos:[]
+};
+
+const DANO_ITEMS = [
+  ['fachadas','7. Muros de fachadas o antepechos'],
+  ['vidrios','8. Vidrios exteriores'],
+  ['acabados','9. Acabados exteriores (antenas, letreros, etc.)'],
+  ['divisorios','10. Muros divisorios o particiones'],
+  ['balcones','11. Balcones'],
+  ['cielorraso','12. Cielo rasos y luminarias'],
+  ['cubierta','13. Cubierta'],
+  ['escaleras','14. Escaleras'],
+  ['instalaciones','15. Instalaciones (acueducto/red sanitaria/energía/gas)'],
+  ['ductos','16. Ductos de ventilación'],
+  ['tanques','17. Tanques elevados'],
+];
+const DANO_SCALE = ['Ninguno','Leve','Moderado','Fuerte','Severo','N/A'];
+
+const PRE_ITEMS = [
+  ['calidad_construccion','Calidad de la construcción',['Buena','Regular','Mala']],
+  ['posicion_manzana','Posición en la manzana',['Esquina','Intermedia','Libre 1 costado','Libre 2 costados']],
+  ['config_planta','Configuración en planta',['Buena','Regular','Mala']],
+  ['config_altura','Configuración en altura',['Buena','Regular','Mala']],
+  ['config_estructural','Configuración estructural',['Buena','Regular','Mala']],
+  ['tipo_suelo','Tipo de suelo',['Duro','Medio','Blando','No se pudo determinar']],
+  ['tipo_cimentacion','Tipo de cimentación',['Superficial','Profunda','No se pudo determinar']],
+  ['calidad_cimentacion','Calidad de la cimentación',['Buena','Regular','Mala','No se pudo determinar']],
+  ['topografia','Condiciones topográficas',['Plano','Cresta','Ladera','Pie de ladera','Valle','Borde canal/río/lago']],
+  ['tipo_cubierta','Tipo de cubierta',['Maciza','Liviana']],
+  ['amarre_cubierta','Condiciones de amarre de cubierta',['Buena','Regular','Mala']],
+  ['columna_corta','Efecto de columna corta',['Sí','No']],
+  ['continuidad','Continuidad en columnas y vigas',['Sí','No']],
+  ['anclaje_no_estr','Evidencia de anclaje de elementos no estructurales',['Sí','No','No se sabe']],
+  ['danos_previos','Indicios de daños por sismos anteriores',['Sí','No','No se sabe']],
+  ['reparacion','Hubo reparación',['Total','Parcial','Ninguna','No se pudo determinar']],
+  ['reforzamiento','Se ha llevado a cabo reforzamiento estructural',['Total','Parcial','Ninguna','No se pudo determinar']],
+];
+
+const REC_VISITA = ['Estructurales','Geotécnicos','Servicios públicos'];
+const REC_INTERVENCION = ['Alcaldía Local / Control físico','Policía - Ejército','Tránsito','Bomberos / Entidades de rescate'];
+const REC_MEDIDAS = [
+  'Restringir paso de peatones','Restringir tráfico vehicular','Apuntalar',
+  'Remover elementos en peligro de caer o no estructurales afectados',
+  'Evacuar parcialmente la edificación y restringir acceso','Evacuar totalmente la edificación y restringir acceso',
+  'Evacuar edificaciones vecinas y restringir acceso','Desconectar servicios',
+  'Manejo de sustancias peligrosas','Cubrir con plástico el talud',
+  'Control de aguas de escorrentía sobre talud','Estabilizar en pie de ladera (barreras)'
+];
+
+const SECTIONS = [
+  {id:'catastral', sheet:'C-01', title:'Inspector', sub:'Ingeniero estructural responsable, matrícula y número de formulario.'},
+  {id:'tipo', sheet:'C-02', title:'Tipo de inspección', sub:'Alcance de la visita.'},
+  {id:'edificacion', sheet:'C-03', title:'Identificación de la edificación', sub:'Dirección, nombre, uso y dimensiones.'},
+  {id:'estructura', sheet:'C-04', title:'Descripción de la estructura', sub:'Sistema estructural, entrepiso y período de construcción.'},
+  {id:'estado', sheet:'E-01', title:'Estado general de la edificación', sub:'Colapso, desviación y asentamiento de la cimentación.'},
+  {id:'arquitectonicos', sheet:'E-02', title:'Daños en elementos No estructurales', sub:'Elementos no estructurales, ítems 7 a 17.'},
+  {id:'geotecnicos', sheet:'E-03', title:'Problemas geotécnicos', sub:'Taludes, asentamientos y grietas en el terreno.'},
+  {id:'estructurales', sheet:'E-04', title:'Daños en elementos estructurales', sub:'Piso de mayor afectación — columnas, vigas, nudos, entrepisos.'},
+  {id:'entorno', sheet:'E-05', title:'Problemas del entorno', sub:'Riesgo por edificaciones vecinas o eventos inminentes.'},
+  {id:'global', sheet:'E-06', title:'Clasificación global de habitabilidad', sub:'Resultado más crítico entre las evaluaciones A a E.'},
+  {id:'recomendaciones', sheet:'R-01', title:'Recomendaciones y medidas de seguridad', sub:'Visitas especializadas, intervención y medidas inmediatas.'},
+  {id:'esquema', sheet:'R-02', title:'Esquema de la edificación', sub:'Croquis en planta — dibuje directamente en la cuadrícula.'},
+  {id:'preexistentes', sheet:'R-03', title:'Condiciones pre-existentes', sub:'Calidad y configuración previas al sismo.'},
+  {id:'ocupantes', sheet:'R-04', title:'Efecto en ocupantes y ocupación', sub:'Víctimas, ocupación actual y unidades afectadas.'},
+  {id:'contacto', sheet:'R-05', title:'Persona de contacto', sub:'Responsable o contacto en sitio.'},
+  {id:'comentarios', sheet:'R-06', title:'Comentarios', sub:'Observaciones adicionales y recomendaciones ampliadas.'},
+  {id:'inspectores', sheet:'R-07', title:'Equipo evaluador y fecha', sub:'Comisión de inspección, fecha y datos de envío del informe.'},
+  {id:'fotos', sheet:'F-01', title:'Registro fotográfico', sub:'Evidencia visual asociada a la inspección.'},
+];
+
+let current = 0;
+
+/* ---------------- helpers ---------------- */
+function opts(fieldKey,label,options,current_,colorFn,hint){
+  const rows = options.map(o=>{
+    const val = Array.isArray(o)?o[0]:o;
+    const lab = Array.isArray(o)?o[1]:o;
+    const sel = current_===val ? 'sel '+(colorFn?colorFn(val):'') : '';
+    return `<div class="opt ${sel}" data-field="${fieldKey}" data-val="${val.replace(/"/g,'&quot;')}">${lab}</div>`;
+  }).join('');
+  return `<div class="field"><label class="flabel">${label}</label><div class="opts" id="opts-${fieldKey}">${rows}</div>${hint?`<div class="hint">${hint}</div>`:''}</div>`;
+}
+function text(fieldKey,label,type='text',hint=''){
+  const v = STATE[fieldKey]||'';
+  return `<div class="field"><label class="flabel">${label}</label><input type="${type}" data-key="${fieldKey}" value="${(v+'').replace(/"/g,'&quot;')}">${hint?`<div class="hint">${hint}</div>`:''}</div>`;
+}
+function area(fieldKey,label,hint=''){
+  const v = STATE[fieldKey]||'';
+  return `<div class="field"><label class="flabel">${label}</label><textarea data-key="${fieldKey}">${v}</textarea>${hint?`<div class="hint">${hint}</div>`:''}</div>`;
+}
+function selectGrouped(fieldKey,label,groups){
+  const v = STATE[fieldKey]||'';
+  const optionsHtml = groups.map(g=>`<optgroup label="${g.label}">${g.options.map(([val,lab])=>`<option value="${val}" ${v===val?'selected':''}>${val} — ${lab}</option>`).join('')}</optgroup>`).join('');
+  return `<div class="field"><label class="flabel">${label}</label><select data-key="${fieldKey}"><option value="">— Seleccionar —</option>${optionsHtml}</select></div>`;
+}
+function classCard(letter,fieldKey,label,options){
+  const v = STATE[fieldKey];
+  const sevNum = SEV[v];
+  const cls = sevNum ? SEV_COLOR[sevNum] : 'pending';
+  const txt = v ? v.toUpperCase() : 'PENDIENTE';
+  return `<div class="class-card"><div class="clabel">Clasificación ${letter} · ${label}</div><div class="cval ${cls}">${txt}</div></div>`;
+}
+
+/* ---------------- section renderers ---------------- */
+function renderCatastral(){
+  return text('formulario_numero','Formulario número')
+  + `<div class="matricula-box" style="margin-top:6px;">
+      <label class="flabel">Ingeniero estructural responsable</label>
+      ${text('ingeniero_nombre','Nombre completo del ingeniero estructural')}
+      ${text('ingeniero_matricula','Matrícula profesional (CPIC)')}
+      <label class="flabel" style="margin-top:10px;">Adjuntar fotocopia de la matrícula profesional (tarjeta profesional CPIC)</label>
+      <div class="photo-drop" id="matriculaDrop">📎 Toque para adjuntar imagen o PDF de la matrícula<input type="file" id="matriculaInput" accept="image/*,application/pdf" style="display:none;"></div>
+      <div id="matriculaPreviewWrap"></div>
+    </div>`;
+}
+function renderTipo(){
+  return opts('tipo_inspeccion','Inspección de la edificación',['Completa','Parcial','Exterior solamente'],STATE.tipo_inspeccion)
+  + `<div class="small-note">La clasificación de habitabilidad final se calcula automáticamente en la sección <b>E-06 · Clasificación global</b>, a partir de las evaluaciones A–E que usted diligencia en las secciones siguientes.</div>`;
+}
+function renderEdificacion(){
+  const usos = ['Residencial','Comercial','Educacional','Salud','Hotelero','Oficinas','Industrial','Institucional','Bodegas','Estacionamientos','Otros'];
+  return text('direccion','Dirección') + text('nombre_edificacion','Nombre de la edificación')
+  + `<div class="grid2">
+     <div class="field"><label class="flabel">Uso predominante — edificación</label><select data-key="uso_edificacion">${['',...usos].map(u=>`<option value="${u}" ${STATE.uso_edificacion===u?'selected':''}>${u||'— Seleccionar —'}</option>`).join('')}</select></div>
+     <div class="field"><label class="flabel">Uso predominante — planta baja</label><select data-key="uso_planta_baja">${['',...usos].map(u=>`<option value="${u}" ${STATE.uso_planta_baja===u?'selected':''}>${u||'— Seleccionar —'}</option>`).join('')}</select></div>
+     </div>
+  <div class="grid2">${text('num_pisos','Número de pisos (niveles sobre terreno)','number')}${text('num_sotanos','Sótanos','number')}</div>
+  <div class="grid2">${text('dim_frente','Dimensión frente (m)','number')}${text('dim_fondo','Dimensión fondo (m)','number')}</div>`;
+}
+function renderEstructura(){
+  const sistema = [
+    {label:'Concreto reforzado',options:[['11','Pórtico de concreto'],['12','Muros estructurales'],['13','Sistemas duales'],['14','Prefabricados']]},
+    {label:'Mampostería',options:[['21','Mampostería confinada'],['22','Mampostería reforzada'],['23','Mampostería no reforzada (simple)']]},
+    {label:'Acero',options:[['31','Pórticos arriostrados'],['32','Pórticos no arriostrados'],['33','Pórticos en celosía']]},
+    {label:'Madera',options:[['41','Pórticos y paneles en madera'],['42','Pórticos en madera y paneles en otros materiales']]},
+    {label:'Bahareque o tapia (adobe)',options:[['51','Muros en bahareque'],['52','Muros en tapia o adobe']]},
+    {label:'Otros',options:[['60','Mixta'],['61','Construida en material precario (sin sistema estructural)'],['70','Otros']]},
+  ];
+  const entrepiso = [
+    {label:'Concreto reforzado',options:[['11','Placa maciza'],['12','Placa aligerada'],['13','Reticular celulado']]},
+    {label:'Acero',options:[['21','Lámina colaborante (steel deck)'],['22','Vigas'],['23','Cerchas']]},
+    {label:'Madera / otros',options:[['31','Vigas'],['32','Cerchas'],['40','Mixta'],['50','Otros']]},
+  ];
+  return selectGrouped('sistema_estructural','Sistema estructural',sistema)
+  + selectGrouped('tipo_entrepiso','Tipo de entrepiso',entrepiso)
+  + opts('periodo_construccion','Período de construcción de la edificación',['Antes de 1960','1960 a 1985','1986 a 1999','2000 a 2011','A partir de 2012'],STATE.periodo_construccion);
+}
+function renderEstado(){
+  return opts('colapso','1. Colapso',['No','Parcial','Total'],STATE.colapso)
+  + opts('desviacion','2. Desviación o inclinación de la edificación / entrepiso',['No','Sí','No se pudo determinar'],STATE.desviacion)
+  + opts('falla_cimentacion','3. Falla o asentamiento de la cimentación',['No','Sí','No se pudo determinar'],STATE.falla_cimentacion)
+  + `<div class="field"><label class="flabel">A. Clasificación de la habitabilidad por estado general</label>`
+  + `<div class="opts">${['Habitable','Uso restringido','No habitable','Peligro de colapso'].map(v=>{
+      const sel = STATE.classA===v?'sel '+SEV_COLOR[SEV[v]]:'';
+      return `<div class="opt ${sel}" data-field="classA" data-val="${v}">${v}</div>`;
+    }).join('')}</div></div>`
+  + classCard('A','classA','Estado general',null);
+}
+function renderArquitectonicos(){
+  const rows = DANO_ITEMS.map(([k,label])=>{
+    const cur = STATE.danos_arq[k]||'';
+    const optsHtml = DANO_SCALE.map(v=>{
+      const sel = cur===v?'sel':'';
+      return `<div class="opt ${sel}" data-field="danos_arq.${k}" data-val="${v}">${v}</div>`;
+    }).join('');
+    return `<div class="scale-row"><div class="sname">${label}</div></div><div class="scale-opts" style="margin:-4px 0 8px;flex-wrap:wrap">${optsHtml}</div>`;
+  }).join('');
+  return `<div>${rows}</div>`
+  + `<div class="field" style="margin-top:14px;"><label class="flabel">C. Clasificación de la habitabilidad por daños en elementos no estructurales</label>`
+  + `<div class="opts">${['Habitable','Uso restringido','No habitable'].map(v=>{
+      const sel = STATE.classC===v?'sel '+SEV_COLOR[SEV[v]]:'';
+      return `<div class="opt ${sel}" data-field="classC" data-val="${v}">${v}</div>`;
+    }).join('')}</div></div>`
+  + classCard('C','classC','No estructurales',null);
+}
+function renderGeotecnicos(){
+  return opts('falla_talud','4. Falla en talud o movimientos en masa',['No','Puntual','General'],STATE.falla_talud)
+  + opts('asentamiento','5. Asentamiento, subsidencia o licuación',['No','Puntual','General'],STATE.asentamiento)
+  + opts('grietas_terreno','6. Grietas en el terreno circundante',['No','Incipientes','Generalizadas'],STATE.grietas_terreno)
+  + `<div class="field"><label class="flabel">B. Clasificación de la habitabilidad por problemas geotécnicos</label>`
+  + `<div class="opts">${['Habitable','Uso restringido','No habitable','Peligro de colapso'].map(v=>{
+      const sel = STATE.classB===v?'sel '+SEV_COLOR[SEV[v]]:'';
+      return `<div class="opt ${sel}" data-field="classB" data-val="${v}">${v}</div>`;
+    }).join('')}</div></div>`
+  + classCard('B','classB','Geotécnicos',null);
+}
+function pctRow(key,label){
+  const row = STATE.pct[key];
+  const sum = Object.values(row).reduce((a,b)=>a+(parseFloat(b)||0),0);
+  return `<tr><td class="rowlabel">${label}</td>${['Ninguno','Leve','Moderado','Fuerte','Severo'].map(c=>
+    `<td><input type="number" min="0" max="100" data-pct="${key}.${c}" value="${row[c]}"></td>`).join('')}
+    </tr><tr class="pctsumrow"><td colspan="6" class="pct-sum ${Math.abs(sum-100)>0.01 && sum>0 ? 'bad':''}" id="sum-${key}">Suma: ${sum}% ${sum>0 && Math.abs(sum-100)>0.01 ? '(debe ser 100%)':''}</td></tr>`;
+}
+function renderEstructurales(){
+  return text('nivel_mayor_dano','Nivel de entrepiso con el mayor daño')
+  + `<div class="field"><label class="flabel">Porcentaje de elementos afectados por grado de daño (suma = 100% por fila)</label>
+     <table class="pct-table"><thead><tr><th></th><th>Ninguno</th><th>Leve</th><th>Moderado</th><th>Fuerte</th><th>Severo</th></tr></thead>
+     <tbody id="pctBody">
+     ${pctRow('columnas','18. Columnas o muros portantes')}
+     ${pctRow('vigas','19. Vigas')}
+     ${pctRow('nudos','20. Nudos o puntos de conexión')}
+     ${pctRow('entrepisos','21. Entrepisos')}
+     </tbody></table></div>`
+  + `<div class="field"><label class="flabel">D. Clasificación de la habitabilidad por daños en elementos estructurales</label>`
+  + `<div class="opts">${['Habitable','Uso restringido','No habitable','Peligro de colapso'].map(v=>{
+      const sel = STATE.classD===v?'sel '+SEV_COLOR[SEV[v]]:'';
+      return `<div class="opt ${sel}" data-field="classD" data-val="${v}">${v}</div>`;
+    }).join('')}</div></div>`
+  + classCard('D','classD','Elementos estructurales',null);
+}
+function renderEntorno(){
+  return opts('edif_vecina','22. Edificio/infraestructura vecina crítica que pueda caer y afectar estabilidad',['No','Sí','No se pudo determinar'],STATE.edif_vecina)
+  + opts('evento_inminente','23. Evento adverso inminente que puede afectar la habitabilidad',['No','Sí'],STATE.evento_inminente)
+  + `<div class="field"><label class="flabel">E. Clasificación de la habitabilidad por problemas del entorno</label>`
+  + `<div class="opts">${['Habitable','Uso restringido','No habitable'].map(v=>{
+      const sel = STATE.classE===v?'sel '+SEV_COLOR[SEV[v]]:'';
+      return `<div class="opt ${sel}" data-field="classE" data-val="${v}">${v}</div>`;
+    }).join('')}</div></div>`
+  + classCard('E','classE','Entorno',null);
+}
+function computeGlobal(){
+  const letters = ['classA','classB','classC','classD','classE'];
+  let worst = 0, missing=[];
+  letters.forEach((k,i)=>{
+    const v = STATE[k];
+    if(!v){missing.push(['A','B','C','D','E'][i]);}
+    else worst = Math.max(worst, SEV[v]);
+  });
+  return {sev:worst, missing};
+}
+function renderGlobal(){
+  const g = computeGlobal();
+  const hasVal = g.sev>0;
+  const cls = hasVal?SEV_COLOR[g.sev]:'';
+  const label = hasVal?SEV_LABEL[g.sev]:'PENDIENTE — faltan clasificaciones';
+  const chips = ['A','B','C','D','E'].map((L,i)=>{
+    const key = ['classA','classB','classC','classD','classE'][i];
+    const v = STATE[key];
+    return `<div class="gh-chip"><div class="k">${L}</div><div class="v">${v?v.split(' ')[0]:'—'}</div></div>`;
+  }).join('');
+  return `<div class="global-hero ${cls}">
+    <div class="gh-label">Clasificación global de habitabilidad</div>
+    <div class="gh-val">${label}</div>
+    <div class="gh-note">${hasVal? 'Calculada automáticamente como la más crítica entre las evaluaciones A–E, según el criterio del formulario IDIGER.' : `Complete las clasificaciones faltantes: ${g.missing.join(', ')}.`}</div>
+    <div class="gh-grid">${chips}</div>
+  </div>`
+  + opts('clas_previa','¿Existe una clasificación previa?',['No','Sí'],STATE.clas_previa)
+  + (STATE.clas_previa==='Sí' ? text('clas_previa_cual','¿Cuál?') : '')
+  + text('pct_area_afectada','Porcentaje del área afectada respecto al área total construida (%)','number');
+}
+function tileGroup(stateKey,label,items){
+  const rows = items.map(it=>{
+    const on = STATE[stateKey][it] ? 'on' : '';
+    return `<label class="tile ${on}"><input type="checkbox" data-tile="${stateKey}.${it}" ${STATE[stateKey][it]?'checked':''}> ${it}</label>`;
+  }).join('');
+  return `<div class="field"><label class="flabel">${label}</label><div class="tiles">${rows}</div></div>`;
+}
+function renderRecomendaciones(){
+  return tileGroup('rec_visita','Se necesita visita especializada por aspectos',REC_VISITA)
+  + tileGroup('rec_intervencion','Se recomienda intervención de',REC_INTERVENCION)
+  + tileGroup('rec_medidas','Medidas de seguridad',REC_MEDIDAS)
+  + (STATE.rec_medidas['Desconectar servicios'] ? tileGroup('rec_desconectar','Desconectar',['Energía','Gas','Agua']) : '')
+  + area('lugares_medidas','Especifique lugares de la edificación que requieren la aplicación de las medidas de seguridad');
+}
+function renderEsquema(){
+  return `<div class="field"><label class="flabel">Croquis en planta de la edificación</label>
+    <canvas id="sketch" width="760" height="420"></canvas>
+    <div class="sketch-tools">
+      <button id="skPen" type="button">✏️ Dibujar</button>
+      <button id="skEraser" type="button">🧹 Borrar trazo</button>
+      <button id="skClear" type="button">🗑️ Limpiar todo</button>
+      <button id="skRed" type="button" style="color:#C13E3E">● Rojo (daño)</button>
+      <button id="skBlack" type="button">● Negro</button>
+    </div>
+    <div class="hint">El croquis se incluye automáticamente en el PDF exportado.</div>
+  </div>`;
+}
+function renderPre(){
+  return PRE_ITEMS.map(([k,label,options])=>opts('pre.'+k,label,options,STATE.pre[k])).join('');
+}
+function renderOcupantes(){
+  return opts('hubo_muertos','Hubo muertos o heridos',['No','Sí','No se sabe'],STATE.hubo_muertos)
+  + `<div class="grid3">${text('num_fallecidos','Número de personas fallecidas','number')}${text('num_heridos','Número de heridos','number')}${text('num_afectados','Número de afectados','number')}</div>`
+  + opts('edif_habitada','¿La edificación está habitada actualmente?',['Sí','No'],STATE.edif_habitada)
+  + `<div class="grid3">${text('num_ocupantes','Número de ocupantes','number')}${text('num_unidades','Unidades residenciales/comerciales existentes','number')}${text('num_unidades_no_hab','Unidades con calificación "no habitable"','number')}</div>`;
+}
+function renderContacto(){
+  return text('contacto_nombre','Nombres y apellidos')
+  + `<div class="grid2">${text('contacto_telefono','Teléfono','tel')}${text('contacto_email','Email','email')}</div>`;
+}
+function renderComentarios(){
+  return area('comentarios','Amplíe la evaluación con observaciones que ayuden a darle claridad al formulario. Indique los elementos donde los daños fueron más importantes.');
+}
+function renderInspectores(){
+  return `<div class="grid2">${text('codigo_lider','Código del líder de la comisión')}${text('num_evaluadores','No. de evaluadores','number')}</div>`
+  + text('otro_inspector','Otro inspector')
+  + text('nombre_lider','Nombre del líder de la comisión')
+  + `<div class="grid2">${text('fecha_inspeccion','Fecha de inspección','date')}${text('hora_inspeccion','Hora (24:00)','time')}</div>`
+  + `<div class="matricula-box">
+      <label class="flabel">Envío del informe</label>
+      <div class="grid2">${text('email_destino','Correo destino','email','Ej: recepcion@cornare.gov.co o el correo interno de ICC SAS')}${text('email_asunto','Asunto (opcional)')}</div>
+      <div class="hint">El botón <b>Generar PDF</b> de la última sección crea el informe y abre el selector de apps del teléfono (Gmail, WhatsApp, etc.) con el archivo ya adjunto.</div>
+    </div>`;
+}
+function renderFotos(){
+  return `<div class="photo-drop" id="photoDrop">📷 Toque para agregar fotografías de la inspección<input type="file" id="photoInput" accept="image/*" multiple style="display:none;"></div>
+  <div class="photo-grid" id="photoGrid"></div>
+  <div class="finish-card" id="finishCard">
+    <div class="fc-title">✅ Evaluación completa</div>
+    <div class="fc-sub">Genere el informe en PDF y compártalo directamente desde su teléfono.</div>
+    <button class="fc-main" id="btnShareMain">Generar PDF ↗</button>
+    <div class="fc-row">
+      <button class="fc-chip share" id="btnShareChip"><span>↗</span> Compartir</button>
+      <button class="fc-chip dl" id="btnShareDL"><span>⬇️</span> Descargar</button>
+    </div>
+    <div class="hint">Al tocar «Compartir informe» se abre el menú del teléfono con todas las apps disponibles (WhatsApp, Gmail y otras) y el PDF ya adjunto. Los botones de abajo son un atajo directo a cada app.</div>
+  </div>`;
+}
+
+const RENDERERS = {
+  catastral:renderCatastral, tipo:renderTipo, edificacion:renderEdificacion, estructura:renderEstructura,
+  estado:renderEstado, arquitectonicos:renderArquitectonicos, geotecnicos:renderGeotecnicos,
+  estructurales:renderEstructurales, entorno:renderEntorno, global:renderGlobal,
+  recomendaciones:renderRecomendaciones, esquema:renderEsquema, preexistentes:renderPre,
+  ocupantes:renderOcupantes, contacto:renderContacto, comentarios:renderComentarios,
+  inspectores:renderInspectores, fotos:renderFotos
+};
+
+/* ---------------- main render / nav ---------------- */
+function renderRail(){
+  const rail = document.getElementById('rail');
+  rail.innerHTML = SECTIONS.map((s,i)=>{
+    const cls = i===current?'active':(sectionHasData(s.id)?'done':'');
+    return `<button class="${cls}" data-idx="${i}"><span class="dot"></span>${s.sheet}</button>`;
+  }).join('');
+  rail.querySelectorAll('button').forEach(b=>b.onclick=()=>goTo(parseInt(b.dataset.idx)));
+  const active = rail.querySelector('button.active');
+  if(active) active.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+}
+function sectionHasData(id){
+  // rough heuristic for the rail "done" dot
+  return false;
+}
+function renderMain(){
+  const main = document.getElementById('main');
+  main.innerHTML = SECTIONS.map((s,i)=>`
+    <section class="section ${i===current?'show':''}" data-sidx="${i}">
+      <div class="shead"><span class="num">${s.sheet}</span><h2>${s.title}</h2><p>${s.sub}</p></div>
+      <div class="sbody" id="sbody-${i}"></div>
+    </section>`).join('');
+  const body = document.getElementById(`sbody-${current}`);
+  body.innerHTML = RENDERERS[SECTIONS[current].id]();
+  bindSection(body);
+  if(SECTIONS[current].id==='esquema') initSketch();
+  if(SECTIONS[current].id==='fotos') { renderPhotoGrid(); bindPhotoUpload(); bindFinishCard(); }
+  if(SECTIONS[current].id==='catastral') bindMatricula();
+  document.getElementById('btnPrev').disabled = current===0;
+  document.getElementById('btnNext').textContent = current===SECTIONS.length-1 ? 'Finalizar ✓' : 'Siguiente →';
+  updateHeaderBadge();
+}
+function goTo(idx){
+  current = Math.max(0,Math.min(SECTIONS.length-1,idx));
+  renderMain(); renderRail();
+  const body = document.getElementById(`sbody-${current}`);
+  if(body) body.scrollTop = 0;
+}
+
+function bindSection(scope){
+  scope.querySelectorAll('[data-key]').forEach(inp=>{
+    inp.addEventListener('input',()=>{ STATE[inp.dataset.key] = inp.value; scheduleAutosave(); });
+  });
+  scope.querySelectorAll('.opts .opt, .scale-opts .opt').forEach(o=>{
+    o.addEventListener('click',()=>{
+      const field = o.dataset.field, val = o.dataset.val;
+      setPath(field, getPath(field)===val ? '' : val); // toggle off if clicked again
+      renderMain(); renderRail();
+    });
+  });
+  scope.querySelectorAll('[data-pct]').forEach(inp=>{
+    inp.addEventListener('input',()=>{
+      const [key,col] = inp.dataset.pct.split('.');
+      STATE.pct[key][col] = inp.value;
+      const row = STATE.pct[key];
+      const sum = Object.values(row).reduce((a,b)=>a+(parseFloat(b)||0),0);
+      const el = document.getElementById('sum-'+key);
+      if(el){ el.textContent = `Suma: ${sum}% ${sum>0 && Math.abs(sum-100)>0.01 ? '(debe ser 100%)':''}`; el.className = 'pct-sum '+(Math.abs(sum-100)>0.01 && sum>0?'bad':''); }
+      scheduleAutosave();
+    });
+  });
+  scope.querySelectorAll('[data-tile]').forEach(cb=>{
+    cb.addEventListener('change',()=>{
+      const [group,item] = cb.dataset.tile.split('.');
+      STATE[group][item] = cb.checked;
+      renderMain();
+    });
+  });
+}
+function getPath(path){
+  return path.split('.').reduce((o,k)=>o&&o[k]!==undefined?o[k]:'', STATE);
+}
+function setPath(path,val){
+  const parts = path.split('.');
+  if(parts.length===1){ STATE[parts[0]] = val; }
+  else { let o = STATE[parts[0]]; if(!o){o=STATE[parts[0]]={};} o[parts[1]]=val; }
+  scheduleAutosave();
+}
+
+function updateHeaderBadge(){
+  const g = computeGlobal();
+  const badge = document.getElementById('habBadge');
+  if(g.sev>0){
+    badge.textContent = SEV_LABEL[g.sev];
+    badge.style.background = ({verde:'#3E8E4F',amarillo:'#D9A61F',naranja:'#D4732A',rojo:'#C13E3E'})[SEV_COLOR[g.sev]];
+    badge.style.color = SEV_COLOR[g.sev]==='amarillo' ? '#3a2a05' : '#fff';
+    badge.style.borderColor = 'transparent';
+  } else {
+    badge.textContent = 'Sin evaluar';
+    badge.style.background = 'transparent';
+    badge.style.color='#B9C2D0';
+  }
+}
+
+/* ---------------- photos ---------------- */
+function bindPhotoUpload(){
+  const drop = document.getElementById('photoDrop');
+  const input = document.getElementById('photoInput');
+  drop.onclick = ()=>input.click();
+  input.onchange = async (e)=>{
+    const files = Array.from(e.target.files);
+    for(const f of files){
+      const dataUrl = await fileToDataUrl(f);
+      STATE.photos.push({id:Date.now()+Math.random(), name:f.name, caption:'', tag:'General', data:dataUrl});
+    }
+    input.value='';
+    renderPhotoGrid();
+    scheduleAutosave();
+  };
+}
+function renderPhotoGrid(){
+  const grid = document.getElementById('photoGrid');
+  if(!grid) return;
+  const tags = ['General','Fachada','Estructura / daño','Geotécnico','Entorno','Croquis'];
+  grid.innerHTML = STATE.photos.map(p=>`
+    <div class="photo-card">
+      <img src="${p.data}">
+      <div class="pmeta">
+        <select data-photo-tag="${p.id}">${tags.map(t=>`<option ${p.tag===t?'selected':''}>${t}</option>`).join('')}</select>
+        <input type="text" placeholder="Descripción..." value="${(p.caption||'').replace(/"/g,'&quot;')}" data-photo-cap="${p.id}">
+        <button class="prm" data-photo-rm="${p.id}">Eliminar</button>
+      </div>
+    </div>`).join('') || `<div class="small-note" style="grid-column:1/-1;">Aún no hay fotografías adjuntas.</div>`;
+  grid.querySelectorAll('[data-photo-cap]').forEach(inp=>inp.addEventListener('input',()=>{
+    const ph = STATE.photos.find(p=>p.id==inp.dataset.photoCap); if(ph){ph.caption=inp.value; scheduleAutosave();}
+  }));
+  grid.querySelectorAll('[data-photo-tag]').forEach(sel=>sel.addEventListener('change',()=>{
+    const ph = STATE.photos.find(p=>p.id==sel.dataset.photoTag); if(ph){ph.tag=sel.value; scheduleAutosave();}
+  }));
+  grid.querySelectorAll('[data-photo-rm]').forEach(btn=>btn.addEventListener('click',()=>{
+    STATE.photos = STATE.photos.filter(p=>p.id!=btn.dataset.photoRm);
+    renderPhotoGrid(); scheduleAutosave();
+  }));
+}
+function fileToDataUrl(file){
+  return new Promise((res,rej)=>{
+    const r = new FileReader();
+    r.onload = ()=>res(r.result);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+}
+
+/* ---------------- matrícula ---------------- */
+function bindMatricula(){
+  const drop = document.getElementById('matriculaDrop');
+  const input = document.getElementById('matriculaInput');
+  if(!drop) return;
+  drop.onclick = ()=>input.click();
+  input.onchange = async (e)=>{
+    const f = e.target.files[0];
+    if(!f) return;
+    const dataUrl = await fileToDataUrl(f);
+    STATE.matricula_file = dataUrl;
+    STATE.matricula_name = f.name;
+    renderMatriculaPreview();
+    scheduleAutosave();
+  };
+  renderMatriculaPreview();
+}
+function renderMatriculaPreview(){
+  const wrap = document.getElementById('matriculaPreviewWrap');
+  if(!wrap) return;
+  if(!STATE.matricula_file){ wrap.innerHTML=''; return; }
+  if(STATE.matricula_file.startsWith('data:image')){
+    wrap.innerHTML = `<img class="matricula-preview" src="${STATE.matricula_file}"><div class="hint">${STATE.matricula_name}</div>`;
+  } else {
+    wrap.innerHTML = `<div class="hint">📄 Adjunto: ${STATE.matricula_name}</div>`;
+  }
+}
+
+/* ---------------- sketch canvas ---------------- */
+function initSketch(){
+  const canvas = document.getElementById('sketch');
+  const ctx = canvas.getContext('2d');
+  let drawing=false, mode='pen', color='#16233A';
+  function pos(e){
+    const r = canvas.getBoundingClientRect();
+    const cx = (e.touches?e.touches[0].clientX:e.clientX) - r.left;
+    const cy = (e.touches?e.touches[0].clientY:e.clientY) - r.top;
+    return {x:cx*(canvas.width/r.width), y:cy*(canvas.height/r.height)};
+  }
+  if(STATE.sketch){ const img = new Image(); img.onload=()=>ctx.drawImage(img,0,0); img.src = STATE.sketch; }
+  function start(e){ drawing=true; const p=pos(e); ctx.beginPath(); ctx.moveTo(p.x,p.y); e.preventDefault(); }
+  function move(e){ if(!drawing) return; const p=pos(e); ctx.lineWidth = mode==='eraser'?18:2.5; ctx.lineCap='round';
+    ctx.strokeStyle = mode==='eraser' ? '#FFFFFF' : color; ctx.lineTo(p.x,p.y); ctx.stroke(); e.preventDefault(); }
+  function end(){ if(drawing){ drawing=false; STATE.sketch = canvas.toDataURL('image/png'); scheduleAutosave(); } }
+  canvas.addEventListener('mousedown',start); canvas.addEventListener('mousemove',move); window.addEventListener('mouseup',end);
+  canvas.addEventListener('touchstart',start,{passive:false}); canvas.addEventListener('touchmove',move,{passive:false}); canvas.addEventListener('touchend',end);
+  document.getElementById('skPen').onclick=()=>mode='pen';
+  document.getElementById('skEraser').onclick=()=>mode='eraser';
+  document.getElementById('skRed').onclick=()=>{mode='pen';color='#C13E3E';};
+  document.getElementById('skBlack').onclick=()=>{mode='pen';color='#16233A';};
+  document.getElementById('skClear').onclick=()=>{ ctx.clearRect(0,0,canvas.width,canvas.height); STATE.sketch=null; scheduleAutosave(); };
+}
+
+/* ---------------- autosave (window.storage) ---------------- */
+let saveTimer=null;
+function scheduleAutosave(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(()=>saveDraft(true),1200);
+}
+async function saveDraft(silent){
+  if(typeof window.storage === 'undefined'){
+    if(!silent) showToast('Este visor no admite guardado automático. Use «Compartir informe» para no perder su trabajo.');
+    return;
+  }
+  try{
+    const toSave = Object.assign({}, STATE);
+    // keep payload light: drop large photo binaries from autosave, keep captions/tags only
+    toSave.photos = STATE.photos.map(p=>({id:p.id,name:p.name,caption:p.caption,tag:p.tag}));
+    delete toSave.matricula_file;
+    const result = await window.storage.set('fuv-draft', JSON.stringify(toSave), false);
+    if(!silent){
+      if(result) showToast('Borrador guardado. Las fotos y la matrícula solo se conservan en esta sesión.');
+      else showToast('El guardado no se confirmó — intente de nuevo o exporte el PDF como respaldo.');
+    }
+  }catch(err){
+    if(!silent) showToast('No se pudo guardar: '+(err && err.message ? err.message : 'error desconocido'));
+  }
+}
+async function loadDraft(){
+  if(typeof window.storage === 'undefined') return;
+  try{
+    const res = await window.storage.get('fuv-draft', false);
+    if(res && res.value){
+      const saved = JSON.parse(res.value);
+      Object.assign(STATE, saved);
+      STATE.photos = STATE.photos && STATE.photos.length && STATE.photos[0].data ? STATE.photos : [];
+      showToast('Borrador anterior cargado.');
+    }
+  }catch(err){ /* no draft yet */ }
+}
+function showToast(msg,duration){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._h); t._h = setTimeout(()=>t.classList.remove('show'),duration||2600);
+}
+
+/* ---------------- finish card (share bar) ---------------- */
+function bindFinishCard(){
+  const main = document.getElementById('btnShareMain');
+  const share = document.getElementById('btnShareChip');
+  const dl = document.getElementById('btnShareDL');
+  if(main) main.onclick = ()=>sharePdf();
+  if(share) share.onclick = ()=>sharePdf();
+  if(dl) dl.onclick = ()=>sharePdf('download');
+}
+
+/* ---------------- PDF export ---------------- */
+async function buildPdfDoc(){
+  if(typeof window.jspdf === 'undefined'){
+    throw new Error('La librería de generación de PDF no cargó (revise la conexión a internet y recargue).');
+  }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF('p','pt','a4');
+  const W = doc.internal.pageSize.getWidth(), M=40; let y=M;
+  function h1(t){ doc.setFont('helvetica','bold'); doc.setFontSize(15); doc.setTextColor(22,35,58); doc.text(t,M,y); y+=20; }
+  function h2(t){ checkPage(24); doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor(201,138,46); doc.text(t.toUpperCase(),M,y); y+=14; doc.setDrawColor(216,211,198); doc.line(M,y-9,W-M,y-9); }
+  function kv(label,val){ checkPage(14); doc.setFont('helvetica','bold'); doc.setFontSize(9.5); doc.setTextColor(90,90,90); doc.text(label+':',M,y);
+    doc.setFont('helvetica','normal'); doc.setTextColor(20,20,20); const lines = doc.splitTextToSize(String(val||'—'), W-2*M-140); doc.text(lines, M+140, y); y+=Math.max(13,lines.length*11); }
+  function checkPage(need){ if(y+need > 800){ doc.addPage(); y=M; } }
+  function classLine(letter,label,val){ kv(`Clasificación ${letter} (${label})`, val||'Pendiente'); }
+
+  h1('FORMULARIO ÚNICO DE INSPECCIÓN DE EDIFICACIONES POST-SISMO');
+  doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(107,114,128);
+  doc.text('IDIGER / AIS — generado con HogarSeguro', M, y); y+=18;
+
+  const g = computeGlobal();
+  h2('Ingeniero estructural responsable');
+  kv('Nombre', STATE.ingeniero_nombre);
+  kv('Matrícula / CPIC', STATE.ingeniero_matricula);
+  kv('Formulario N.°', STATE.formulario_numero);
+  y+=6;
+
+  h2('Clasificación global de habitabilidad');
+  kv('Resultado', g.sev>0 ? SEV_LABEL[g.sev] : 'PENDIENTE');
+  kv('% área afectada', STATE.pct_area_afectada);
+  y+=6;
+
+  h2('Identificación de la edificación');
+  kv('Dirección', STATE.direccion);
+  kv('Nombre edificación', STATE.nombre_edificacion);
+  kv('Uso (edif. / planta baja)', `${STATE.uso_edificacion} / ${STATE.uso_planta_baja}`);
+  kv('Pisos / Sótanos', `${STATE.num_pisos} / ${STATE.num_sotanos}`);
+  kv('Dimensiones (frente x fondo)', `${STATE.dim_frente} m x ${STATE.dim_fondo} m`);
+  kv('Tipo de inspección', STATE.tipo_inspeccion);
+  y+=6;
+
+  h2('Descripción de la estructura');
+  kv('Sistema estructural', STATE.sistema_estructural);
+  kv('Tipo de entrepiso', STATE.tipo_entrepiso);
+  kv('Período de construcción', STATE.periodo_construccion);
+  y+=6;
+
+  h2('Estado general y clasificaciones A–E');
+  kv('1. Colapso', STATE.colapso); kv('2. Desviación', STATE.desviacion); kv('3. Falla cimentación', STATE.falla_cimentacion);
+  classLine('A','estado general',STATE.classA);
+  classLine('B','geotécnicos',STATE.classB);
+  classLine('C','no estructurales',STATE.classC);
+  classLine('D','estructurales',STATE.classD);
+  classLine('E','entorno',STATE.classE);
+  y+=6;
+
+  h2('Daños en elementos No estructurales');
+  DANO_ITEMS.forEach(([k,label])=>{ if(STATE.danos_arq[k]) kv(label, STATE.danos_arq[k]); });
+  y+=4;
+
+  h2('Daños en elementos estructurales (%)');
+  kv('Nivel de mayor daño', STATE.nivel_mayor_dano);
+  ['columnas','vigas','nudos','entrepisos'].forEach(k=>{
+    const r = STATE.pct[k];
+    kv(k, `Ninguno ${r.Ninguno||0}% · Leve ${r.Leve||0}% · Mod ${r.Moderado||0}% · Fuerte ${r.Fuerte||0}% · Severo ${r.Severo||0}%`);
+  });
+  y+=6;
+
+  h2('Problemas geotécnicos y del entorno');
+  kv('4. Falla en talud', STATE.falla_talud); kv('5. Asentamiento', STATE.asentamiento); kv('6. Grietas terreno', STATE.grietas_terreno);
+  kv('22. Edif. vecina crítica', STATE.edif_vecina); kv('23. Evento inminente', STATE.evento_inminente);
+  y+=6;
+
+  h2('Recomendaciones y medidas de seguridad');
+  const vis = REC_VISITA.filter(v=>STATE.rec_visita[v]).join(', ');
+  const inter = REC_INTERVENCION.filter(v=>STATE.rec_intervencion[v]).join(', ');
+  const med = REC_MEDIDAS.filter(v=>STATE.rec_medidas[v]).join(', ');
+  kv('Visita especializada', vis); kv('Intervención de', inter); kv('Medidas de seguridad', med);
+  kv('Lugares específicos', STATE.lugares_medidas);
+  y+=6;
+
+  h2('Condiciones pre-existentes');
+  PRE_ITEMS.forEach(([k,label])=>{ if(STATE.pre[k]) kv(label, STATE.pre[k]); });
+  y+=6;
+
+  h2('Efecto en ocupantes y ocupación');
+  kv('Muertos o heridos', STATE.hubo_muertos);
+  kv('Fallecidos / Heridos / Afectados', `${STATE.num_fallecidos||0} / ${STATE.num_heridos||0} / ${STATE.num_afectados||0}`);
+  kv('Edificación habitada', STATE.edif_habitada);
+  kv('Ocupantes / Unidades / No habitables', `${STATE.num_ocupantes||0} / ${STATE.num_unidades||0} / ${STATE.num_unidades_no_hab||0}`);
+  y+=6;
+
+  h2('Persona de contacto');
+  kv('Nombre', STATE.contacto_nombre); kv('Teléfono', STATE.contacto_telefono); kv('Email', STATE.contacto_email);
+  y+=6;
+
+  h2('Comentarios');
+  checkPage(30);
+  doc.setFont('helvetica','normal'); doc.setFontSize(9.5); doc.setTextColor(20,20,20);
+  const cLines = doc.splitTextToSize(STATE.comentarios||'—', W-2*M);
+  doc.text(cLines,M,y); y+= cLines.length*11+6;
+
+  h2('Equipo evaluador y fecha');
+  kv('Código líder comisión', STATE.codigo_lider);
+  kv('No. de evaluadores', STATE.num_evaluadores);
+  kv('Otro inspector', STATE.otro_inspector);
+  kv('Nombre líder comisión', STATE.nombre_lider);
+  kv('Fecha / Hora inspección', `${STATE.fecha_inspeccion||''} ${STATE.hora_inspeccion||''}`);
+  y+=10;
+
+  // Mensaje oficial para la comunidad (texto fijo del formulario IDIGER)
+  checkPage(90);
+  doc.setDrawColor(216,211,198); doc.setFillColor(251,250,246);
+  const msgText = 'Mensaje para la comunidad: La presente evaluación y sus recomendaciones están basadas en el reconocimiento de campo de las condiciones físicas de la edificación y su entorno efectuado durante la visita; por tal razón, pueden existir situaciones no previstas y que se escapan de su alcance. Por lo tanto, el responsable de la edificación y sus residentes, deben tener presente que esta evaluación permite establecer una recomendación de habitabilidad con el fin de salvaguardar la vida y no exime a los mismos de la responsabilidad de llevar a cabo los estudios y reparaciones que deban ser adelantadas en el predio. Igualmente, el responsable de la edificación debe considerar que las condiciones de estabilidad de la edificación y de su entorno pueden variar y en dicho caso se deberá solicitar una nueva evaluación a las autoridades competentes.';
+  doc.setFont('helvetica','italic'); doc.setFontSize(8.5); doc.setTextColor(60,60,60);
+  const msgLines = doc.splitTextToSize(msgText, W-2*M-16);
+  const boxH = msgLines.length*10.5 + 14;
+  checkPage(boxH+10);
+  doc.roundedRect(M,y,W-2*M,boxH,4,4,'FD');
+  doc.text(msgLines, M+8, y+13);
+  y += boxH + 14;
+
+  // matrícula image
+  if(STATE.matricula_file && STATE.matricula_file.startsWith('data:image')){
+    doc.addPage(); y=M;
+    h2('Fotocopia de la matrícula profesional');
+    try{
+      const dim = await imgDims(STATE.matricula_file);
+      const maxW = W-2*M, maxH=650;
+      let w=dim.w, h=dim.h; const scale = Math.min(maxW/w, maxH/h,1); w*=scale; h*=scale;
+      doc.addImage(STATE.matricula_file,'JPEG',M,y,w,h);
+    }catch(e){}
+  }
+
+  // sketch
+  if(STATE.sketch){
+    doc.addPage(); y=M;
+    h2('Esquema de la edificación');
+    const dim = await imgDims(STATE.sketch);
+    const maxW = W-2*M; const scale = maxW/dim.w; const w=maxW, h=dim.h*scale;
+    doc.addImage(STATE.sketch,'PNG',M,y,w,h);
+  }
+
+  // photos
+  if(STATE.photos.length){
+    doc.addPage(); y=M; h2(`Registro fotográfico (${STATE.photos.length})`);
+    for(const p of STATE.photos){
+      checkPage(190);
+      try{
+        const dim = await imgDims(p.data);
+        const w=170, h=dim.h*(w/dim.w);
+        doc.addImage(p.data,'JPEG',M,y,w,Math.min(h,150));
+        doc.setFont('helvetica','normal'); doc.setFontSize(8.5); doc.setTextColor(40,40,40);
+        const capLines = doc.splitTextToSize(`[${p.tag}] ${p.caption||p.name}`, W-2*M-w-14);
+        doc.text(capLines, M+w+14, y+10);
+        y += 158;
+      }catch(e){}
+    }
+  }
+
+  return doc;
+}
+function imgDims(dataUrl){
+  return new Promise((res,rej)=>{ const img=new Image(); img.onload=()=>res({w:img.width,h:img.height}); img.onerror=rej; img.src=dataUrl; });
+}
+function pdfFilename(){
+  return `HogarSeguro-Inspeccion-${(STATE.formulario_numero||'sinNumero').replace(/[^a-zA-Z0-9-]/g,'')}.pdf`;
+}
+
+/* Botón único: intenta abrir el selector nativo de apps (Gmail, Outlook, WhatsApp...)
+   con el PDF ya adjunto. Si el dispositivo/navegador no soporta compartir archivos,
+   descarga el PDF y abre el correo con el asunto/cuerpo prellenado para adjuntarlo a mano. */
+async function sharePdf(target){
+  showToast('Generando PDF...');
+  let doc;
+  try{
+    doc = await buildPdfDoc();
+  } catch(e){
+    showToast('No se pudo generar el PDF: '+(e && e.message ? e.message : 'error desconocido'));
+    console.error(e);
+    return;
+  }
+  const filename = pdfFilename();
+  const subject = STATE.email_asunto || `Informe de inspección post-sismo — ${STATE.direccion || STATE.formulario_numero || ''}`;
+  const bodyTxt = `Adjunto el Formulario Único de Inspección de Edificaciones post-sismo.\n\nDirección: ${STATE.direccion||'-'}\nClasificación global: ${(()=>{const g=computeGlobal();return g.sev>0?SEV_LABEL[g.sev]:'Pendiente';})()}\nIngeniero: ${STATE.ingeniero_nombre||'-'} (${STATE.ingeniero_matricula||'-'})\n`;
+
+  let blob;
+  try{ blob = doc.output('blob'); } catch(e){ showToast('No se pudo preparar el archivo: '+e.message); console.error(e); return; }
+
+  // 1) Intento con el selector nativo del teléfono (adjunta el PDF real)
+  if(target!=='download' && typeof navigator.share === 'function'){
+    try{
+      const file = new File([blob], filename, {type:'application/pdf'});
+      if(!navigator.canShare || navigator.canShare({files:[file]})){
+        await navigator.share({files:[file], title:subject, text:bodyTxt});
+        showToast('Listo — el PDF se envió al selector de apps.');
+        return;
+      } else {
+        showToast('Este navegador no permite adjuntar archivos al compartir. Se descargará el PDF.', 4000);
+      }
+    }catch(err){
+      if(err && err.name==='AbortError') return; // el usuario cerró el selector
+      console.warn('navigator.share falló, se usa respaldo de descarga:', err);
+      showToast('No se pudo abrir el menú del teléfono ('+(err&&err.name?err.name:'error')+'). Se descargará el PDF.', 4000);
+    }
+  } else if(target!=='download'){
+    showToast('Este navegador no tiene menú nativo para compartir archivos. Se descargará el PDF.', 4000);
+  }
+
+  // 2) Respaldo universal: descarga directa por Blob URL (no depende de File/share)
+  const ok = downloadBlob(blob, filename);
+  if(!ok){ showToast('No se pudo descargar el PDF en este visor. Pruebe abrir el enlace en un navegador (Chrome/Safari).'); return; }
+  showToast('PDF descargado como "'+filename+'". Ábralo desde su app de Archivos/Descargas y compártalo desde ahí.', 4800);
+}
+function downloadBlob(blob,filename){
+  try{
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(()=>URL.revokeObjectURL(url), 4000);
+    return true;
+  }catch(e){ console.error('downloadBlob falló:', e); return false; }
+}
+
+/* ---------------- footer nav ---------------- */
+document.getElementById('btnPrev').onclick = ()=>goTo(current-1);
+document.getElementById('btnNext').onclick = ()=>{
+  if(current===SECTIONS.length-1){
+    goTo(0);
+    showToast('Evaluación revisada. Volviendo al inicio del formulario.');
+  } else {
+    goTo(current+1);
+  }
+};
+document.getElementById('btnSave').onclick = ()=>saveDraft(false);
+
+/* ---------------- init ---------------- */
+window.addEventListener('error', (e)=>{ try{ showToast('Error: '+e.message); }catch(_){} });
+window.addEventListener('unhandledrejection', (e)=>{ try{ showToast('Error: '+(e.reason&&e.reason.message?e.reason.message:e.reason)); }catch(_){} });
+(async function init(){
+  await loadDraft();
+  renderRail(); renderMain();
+})();
+</script>
+</body>
+</html>
